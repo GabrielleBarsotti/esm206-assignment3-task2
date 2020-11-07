@@ -261,9 +261,9 @@ gasol_hookshots <- lakers %>%
   mutate(month_new = month(date_new))
 
 hookshots_by_month <- gasol_hookshots %>% 
-  group_by(points, month_new) %>% 
-  count(month = sum(points)) %>% 
-  summarize(total_shots = sum(n))
+  group_by(month_new) %>% 
+  count(month_new) %>% 
+  summarize(total_shots = n)
 
 ```
 
@@ -310,10 +310,12 @@ Create a new version of storms called `storms_danger` in which you add a new col
 
 Note: If you add another condition within `case_when()` that is `TRUE ~ "some thing"`, then any entry that hasn't been specified by previous conditions will get that "catch all" statement. 
 
-
 ```{r}
 # Your code here: 
-
+storm_danger <- storms %>%
+  mutate(danger = case_when( 
+    status %in% c("huricane") ~ "high",
+    status != "hurricane" ~ "moderate"))
 
 ```
 
